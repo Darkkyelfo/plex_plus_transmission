@@ -1,0 +1,18 @@
+services:
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      PUID: "${PUID}"
+      PGID: "${PGID}"
+      TZ: "${TZ}"
+      USER: "${TRANSMISSION_USER}"
+      PASS: "${TRANSMISSION_PASS}"
+    volumes:
+      - ${DATA_ROOT}/docker/transmission/config:/config
+      - ${DATA_ROOT}/media/downloads:/downloads
+    ports:
+      - "9091:9091/tcp"
+      - "51413:51413/tcp"
+      - "51413:51413/udp"
+    restart: unless-stopped
